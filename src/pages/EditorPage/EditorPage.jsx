@@ -4,12 +4,18 @@ import DndField from '../../features/dnd/DndField';
 import { useBlocksStore } from '../../shared/store/useBlocksStore';
 import Block from '../../entities/block/Block';
 import DraggableItem from '../../shared/ui/DraggableItem';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Button } from 'antd';
 
 const { Sider, Content } = Layout;
 
 const EditorPage = () => {
   const blocks = useBlocksStore((state) => state.blocks);
+
+  const exportBlocksAsJSON = () => {
+    const jsonBlocks = JSON.stringify(blocks, null, 2);
+    console.log(jsonBlocks); // Вы можете заменить это на любую другую логику, например, вывод в модальное окно или скачивание файла
+    alert("JSON данных сохранен в консоли.");
+  };
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -45,6 +51,9 @@ const EditorPage = () => {
               <Block key={index} block={block} />
             ))}
           </div>
+          <Button type="primary" onClick={exportBlocksAsJSON} style={{ marginTop: 20 }}>
+            Экспортировать в JSON
+          </Button>
         </Content>
       </Layout>
     </Layout>

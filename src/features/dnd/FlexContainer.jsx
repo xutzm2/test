@@ -1,11 +1,10 @@
+// src/features/dnd/FlexContainer.jsx
 import React, { useState } from 'react';
+import { Row, Col } from 'antd';
 import DroppableColumn from './DroppableColumn';
-import './FlexContainer.css';
 
 const FlexContainer = ({ columns, currentDepth = 0 }) => {
   const [columnContents, setColumnContents] = useState(columns.map(() => []));
-
-  const [columnWidths, setColumnWidths] = useState(columns.map(() => 200));
 
   const addBlockToColumn = (columnIndex, block) => {
     setColumnContents((prev) => {
@@ -15,28 +14,22 @@ const FlexContainer = ({ columns, currentDepth = 0 }) => {
     });
   };
 
-  const handleResize = (index, newWidth) => {
-    setColumnWidths((prevWidths) => {
-      const newWidths = [...prevWidths];
-      newWidths[index] = newWidth;
-      return newWidths;
-    });
-  };
-
   return (
-    <div className="flex-container" style={{ display: 'flex', width: '100%' }}>
+    <Row gutter={16}>
       {columnContents.map((column, index) => (
-        <DroppableColumn
+        <Col
           key={index}
-          columnIndex={index}
-          columnContents={column}
-          addBlockToColumn={addBlockToColumn}
-          currentDepth={currentDepth}
-          columnWidth={columnWidths[index]} 
-          onResize={handleResize} 
-        />
+          span={24 / columns.length} // Adjust span based on the number of columns
+        >
+          <DroppableColumn
+            columnIndex={index}
+            columnContents={column}
+            addBlockToColumn={addBlockToColumn}
+            currentDepth={currentDepth} // Передаем текущую глубину
+          />
+        </Col>
       ))}
-    </div>
+    </Row>
   );
 };
 

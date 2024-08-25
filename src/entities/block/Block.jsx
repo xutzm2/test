@@ -1,4 +1,3 @@
-// src/entities/block/Block.jsx
 import React from 'react';
 import { Button, Card } from 'antd';
 import FlexContainer from '../../features/dnd/FlexContainer';
@@ -9,7 +8,7 @@ const Block = ({ block, currentDepth }) => {
       return <h1>{block.content || 'Новый Заголовок'}</h1>;
     case 'button':
       return (
-        <Card style={{ width: 300 }}>
+        <Card>
           <Button type="primary">{block.content || 'Новая Кнопка'}</Button>
         </Card>
       );

@@ -1,15 +1,11 @@
-// src/features/dnd/FlexContainer.jsx
 import React, { useState } from 'react';
 import DroppableColumn from './DroppableColumn';
 import './FlexContainer.css';
 
 const FlexContainer = ({ columns, currentDepth = 0 }) => {
-  const [columnContents, setColumnContents] = useState(
-    columns.map(() => []) // Инициализируем пустые массивы для каждой колонки
-  );
-  
-  // Инициализируем ширины колонок
-  const [columnWidths, setColumnWidths] = useState(columns.map(() => 200)); // Например, начальная ширина 200px
+  const [columnContents, setColumnContents] = useState(columns.map(() => []));
+
+  const [columnWidths, setColumnWidths] = useState(columns.map(() => 200));
 
   const addBlockToColumn = (columnIndex, block) => {
     setColumnContents((prev) => {
@@ -19,7 +15,6 @@ const FlexContainer = ({ columns, currentDepth = 0 }) => {
     });
   };
 
-  // Обработчик изменения размера
   const handleResize = (index, newWidth) => {
     setColumnWidths((prevWidths) => {
       const newWidths = [...prevWidths];
@@ -37,8 +32,8 @@ const FlexContainer = ({ columns, currentDepth = 0 }) => {
           columnContents={column}
           addBlockToColumn={addBlockToColumn}
           currentDepth={currentDepth}
-          columnWidth={columnWidths[index]} // Передаем ширину колонки
-          onResize={handleResize} // Передаем обработчик изменения размера
+          columnWidth={columnWidths[index]} 
+          onResize={handleResize} 
         />
       ))}
     </div>

@@ -1,10 +1,9 @@
-// src/pages/EditorPage/EditorPage.jsx
 import React from 'react';
+import { Layout, Menu, Button } from 'antd';
 import DndField from '../../features/dnd/DndField';
 import { useBlocksStore } from '../../shared/store/useBlocksStore';
 import Block from '../../entities/block/Block';
 import DraggableItem from '../../shared/ui/DraggableItem';
-import { Layout, Menu, Button } from 'antd';
 
 const { Sider, Content } = Layout;
 
@@ -17,6 +16,12 @@ const EditorPage = () => {
     alert("JSON данных сохранен в консоли.");
   };
 
+  const menuItems = [
+    { key: 'h1', label: <DraggableItem type="h1" label="<card>h1</card>" /> },
+    { key: 'button', label: <DraggableItem type="button" label="<card>button</card>" /> },
+    { key: 'structure', label: <DraggableItem type="structure" label="Структура" /> },
+  ];
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider width={200} className="site-layout-background">
@@ -24,17 +29,8 @@ const EditorPage = () => {
           mode="inline"
           defaultSelectedKeys={['1']}
           style={{ height: '100%', borderRight: 0 }}
-        >
-          <Menu.Item key="h1">
-            <DraggableItem type="h1" label="<card>h1</card>" />
-          </Menu.Item>
-          <Menu.Item key="button">
-            <DraggableItem type="button" label="<card>button</card>" />
-          </Menu.Item>
-          <Menu.Item key="structure">
-            <DraggableItem type="structure" label="Структура" />
-          </Menu.Item>
-        </Menu>
+          items={menuItems}
+        />
       </Sider>
       <Layout style={{ padding: '0 24px 24px' }}>
         <Content

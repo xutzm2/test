@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import ResizableColumn from './ResizableColumn';
 import DroppableColumn from './DroppableColumn';
 
-const FlexContainer = ({ columns, currentDepth = 0 }) => {
+const FlexContainer = ({ columns, currentDepth = 0, index, removeBlock }) => {
   const [columnContents, setColumnContents] = useState(columns.map(() => []));
   const [columnWidths, setColumnWidths] = useState(columns.map(() => 200));
 
@@ -25,20 +25,28 @@ const FlexContainer = ({ columns, currentDepth = 0 }) => {
 
   return (
     <div style={{ display: 'flex', width: '100%' }}>
-      {columnContents.map((column, index) => (
+      {columnContents.map((column, columnIndex) => (
         <ResizableColumn
-          key={index}
-          width={columnWidths[index]}
-          onResize={(newWidth) => handleResize(index, newWidth)}
+          key={columnIndex}
+          width={columnWidths[columnIndex]}
+          onResize={(newWidth) => handleResize(columnIndex, newWidth)}
         >
           <DroppableColumn
-            columnIndex={index}
+            columnIndex={columnIndex}
             columnContents={column}
             addBlockToColumn={addBlockToColumn}
             currentDepth={currentDepth}
+            removeBlock={(childIndex) => {
+              const updatedContents = [...columnContents];
+              updatedContents[columnIndex] = updatedContents[columnIndex].filter(
+                (_, i) => i !== childIndex
+              );
+              setColumnContents(updatedContents);
+            }}
           />
         </ResizableColumn>
       ))}
+      <button onClick={removeBlock}>Удалить структуру</button>
     </div>
   );
 };

@@ -3,13 +3,12 @@ import React from 'react';
 import { useDrop } from 'react-dnd';
 import Block from '../../entities/block/Block';
 
-const MAX_NESTED_STRUCTURES = 1; // Максимальная вложенность структур
-
 const DroppableColumn = ({
   columnIndex,
   columnContents,
   addBlockToColumn,
   currentDepth,
+  removeBlock,
 }) => {
   const [{ isOver }, drop] = useDrop({
     accept: 'block',
@@ -22,7 +21,7 @@ const DroppableColumn = ({
         currentDepth
       );
 
-      if (isStructure && currentStructureDepth >= MAX_NESTED_STRUCTURES) {
+      if (isStructure && currentStructureDepth >= 1) {
         return;
       }
 
@@ -51,7 +50,13 @@ const DroppableColumn = ({
       }}
     >
       {columnContents.map((block, index) => (
-        <Block key={index} block={block} currentDepth={currentDepth} />
+        <Block
+          key={index}
+          block={block}
+          currentDepth={currentDepth}
+          index={index}
+          removeBlock={() => removeBlock(index)}
+        />
       ))}
     </div>
   );

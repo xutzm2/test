@@ -1,11 +1,10 @@
 // src/pages/EditorPage/EditorPage.jsx
 import React from 'react';
-import { Layout, Menu, Button } from 'antd';
-import FlexContainer from '../../features/dnd/FlexContainer';
 import DndField from '../../features/dnd/DndField';
 import { useBlocksStore } from '../../shared/store/useBlocksStore';
 import Block from '../../entities/block/Block';
 import DraggableItem from '../../shared/ui/DraggableItem';
+import { Layout, Menu, Button } from 'antd';
 
 const { Sider, Content } = Layout;
 
@@ -14,7 +13,7 @@ const EditorPage = () => {
 
   const exportBlocksAsJSON = () => {
     const jsonBlocks = JSON.stringify(blocks, null, 2);
-    console.log(jsonBlocks); // Вы можете заменить это на любую другую логику, например, вывод в модальное окно или скачивание файла
+    console.log(jsonBlocks);
     alert("JSON данных сохранен в консоли.");
   };
 
@@ -46,11 +45,10 @@ const EditorPage = () => {
             backgroundColor: '#fff',
           }}
         >
-          <FlexContainer columns={[33, 33, 33]} /> {/* Задайте исходные размеры колонок */}
           <DndField />
           <div className="blocks-preview">
             {blocks.map((block, index) => (
-              <Block key={index} block={block} />
+              <Block key={index} block={block} index={index} />
             ))}
           </div>
           <Button type="primary" onClick={exportBlocksAsJSON} style={{ marginTop: 20 }}>

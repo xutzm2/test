@@ -1,0 +1,28 @@
+/* Стили для компонента с изменяемыми размерами */
+.resizable-column {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .column-content {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  /* Стили для вертикальной линии изменения размера */
+  .react-resizable-handle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 15px; /* Ширина вертикальной линии */
+    height: 100%;
+    cursor: ew-resize;
+    background-color: rgba(0, 0, 0, 0.3); /* Цвет линии */
+    z-index: 1; /* Чтобы линия была поверх содержимого */
+    /* Убедитесь, что никакие другие стили не перекрывают эти настройки */
+    transform: none; /* Убираем любые трансформации, которые могут быть применены */
+    margin-top:0
+  }
+  

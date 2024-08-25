@@ -1,3 +1,4 @@
+// src/entities/block/Block.jsx
 import React from 'react';
 import { Button, Card } from 'antd';
 import FlexContainer from '../../features/dnd/FlexContainer';

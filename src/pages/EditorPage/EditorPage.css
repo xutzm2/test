@@ -1,0 +1,9 @@
+/* src/pages/EditorPage/EditorPage.css */
+.ReactSplitPane {
+    position: relative;
+  }
+  
+  .ReactSplitPane .resizer {
+    background: #d9d9d9;
+    cursor: ew-resize;
+  }

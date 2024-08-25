@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+/* src/index.css */
+.resizable-box {
+  position: relative;
+  background-color: #f5f5f5;
+}
+
+.ant-col {
+  padding: 0 8px;
+}

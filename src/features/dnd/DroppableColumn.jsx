@@ -5,29 +5,18 @@ import Block from '../../entities/block/Block';
 
 const DroppableColumn = ({
   columnIndex,
-  columnContents,
+  columnContents = [], // Устанавливаем по умолчанию пустой массив
   addBlockToColumn,
   currentDepth,
-  removeBlock,
 }) => {
   const [{ isOver }, drop] = useDrop({
     accept: 'block',
     drop: (item) => {
       const isStructure = item.type === 'structure';
 
-      const currentStructureDepth = columnContents.reduce(
-        (maxDepth, block) =>
-          block.type === 'flex' ? Math.max(maxDepth, block.depth || 1) : maxDepth,
-        currentDepth
-      );
-
-      if (isStructure && currentStructureDepth >= 1) {
-        return;
-      }
-
       const newBlock = {
         type: isStructure ? 'flex' : item.type,
-        columns: isStructure ? [33, 33, 33] : undefined,
+        columns: isStructure ? [[], [], []] : undefined,
         content: item.type === 'h1' ? 'Новый Заголовок' : item.type === 'button' ? 'Новая Кнопка' : undefined,
         depth: isStructure ? currentDepth + 1 : currentDepth,
       };
@@ -49,14 +38,8 @@ const DroppableColumn = ({
         position: 'relative',
       }}
     >
-      {columnContents.map((block, index) => (
-        <Block
-          key={index}
-          block={block}
-          currentDepth={currentDepth}
-          index={index}
-          removeBlock={() => removeBlock(index)}
-        />
+      {Array.isArray(columnContents) && columnContents.map((block, index) => (
+        <Block key={index} block={block} currentDepth={currentDepth} />
       ))}
     </div>
   );

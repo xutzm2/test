@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import ResizableColumn from './ResizableColumn';
 import DroppableColumn from './DroppableColumn';
 
-const FlexContainer = ({ columns, currentDepth = 0, index, removeBlock }) => {
-  const [columnContents, setColumnContents] = useState(columns.map(() => []));
-  const [columnWidths, setColumnWidths] = useState(columns.map(() => 200));
+const FlexContainer = ({ columns, currentDepth = 0 }) => {
+  const [columnContents, setColumnContents] = useState(columns || [[], [], []]); // Устанавливаем пустые массивы по умолчанию
 
   const addBlockToColumn = (columnIndex, block) => {
     setColumnContents((prev) => {
@@ -15,40 +14,23 @@ const FlexContainer = ({ columns, currentDepth = 0, index, removeBlock }) => {
     });
   };
 
-  const handleResize = (index, newWidth) => {
-    setColumnWidths((prevWidths) => {
-      const newWidths = [...prevWidths];
-      newWidths[index] = newWidth;
-      return newWidths;
-    });
-  };
-
   return (
     <div style={{ display: 'flex', width: '100%' }}>
-      {columnContents.map((column, columnIndex) => (
+      {columnContents.map((column, index) => (
         <ResizableColumn
-          key={columnIndex}
-          width={columnWidths[columnIndex]}
-          onResize={(newWidth) => handleResize(columnIndex, newWidth)}
+          key={index}
+          width={columns[index]}
         >
           <DroppableColumn
-            columnIndex={columnIndex}
+            columnIndex={index}
             columnContents={column}
             addBlockToColumn={addBlockToColumn}
             currentDepth={currentDepth}
-            removeBlock={(childIndex) => {
-              const updatedContents = [...columnContents];
-              updatedContents[columnIndex] = updatedContents[columnIndex].filter(
-                (_, i) => i !== childIndex
-              );
-              setColumnContents(updatedContents);
-            }}
           />
         </ResizableColumn>
       ))}
-      <button onClick={removeBlock}>Удалить структуру</button>
     </div>
   );
 };
 
-export default FlexContainer;
+export default FlexContainer

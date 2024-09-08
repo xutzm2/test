@@ -5,14 +5,19 @@ import FlexContainer from '../../features/dnd/FlexContainer';
 import { useBlocksStore } from '../../shared/store/useBlocksStore';
 
 const Block = ({ block, currentDepth, index, removeBlock }) => {
+  const cloneBlock = useBlocksStore((state) => state.cloneBlock);
   const globalRemoveBlock = useBlocksStore((state) => state.removeBlock);
 
   const handleRemove = () => {
     if (removeBlock) {
-      removeBlock(); // Если передана функция удаления для вложенного блока
+      removeBlock();
     } else {
-      globalRemoveBlock(index); // Иначе удаляем на верхнем уровне
+      globalRemoveBlock(index);
     }
+  };
+
+  const handleClone = () => {
+    cloneBlock(index);
   };
 
   switch (block.type) {
@@ -20,6 +25,9 @@ const Block = ({ block, currentDepth, index, removeBlock }) => {
       return (
         <div>
           <h1>{block.content || 'Новый Заголовок'}</h1>
+          <Button onClick={handleClone} type="default" style={{ marginRight: '8px' }}>
+            Клонировать
+          </Button>
           <Button onClick={handleRemove} type="primary" danger>
             Удалить
           </Button>
@@ -29,6 +37,9 @@ const Block = ({ block, currentDepth, index, removeBlock }) => {
       return (
         <Card>
           <Button type="primary">{block.content || 'Новая Кнопка'}</Button>
+          <Button onClick={handleClone} type="default" style={{ marginRight: '8px' }}>
+            Клонировать
+          </Button>
           <Button onClick={handleRemove} type="primary" danger>
             Удалить
           </Button>
@@ -40,9 +51,10 @@ const Block = ({ block, currentDepth, index, removeBlock }) => {
           <FlexContainer
             columns={block.columns}
             currentDepth={block.depth || currentDepth}
-            index={index}
-            removeBlock={handleRemove}
           />
+          <Button onClick={handleClone} type="default" style={{ marginRight: '8px' }}>
+            Клонировать
+          </Button>
           <Button onClick={handleRemove} type="primary" danger>
             Удалить
           </Button>
@@ -52,6 +64,9 @@ const Block = ({ block, currentDepth, index, removeBlock }) => {
       return (
         <div>
           {block.type}
+          <Button onClick={handleClone} type="default" style={{ marginRight: '8px' }}>
+            Клонировать
+          </Button>
           <Button onClick={handleRemove} type="primary" danger>
             Удалить
           </Button>

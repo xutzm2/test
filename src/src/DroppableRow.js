@@ -4,7 +4,7 @@ import DroppableColumn from './DroppableColumn';
 
 const ItemType = 'ITEM';
 
-const DroppableRow = ({ item, onDrop, onRemove }) => {
+const DroppableRow = ({ item, onDrop, onRemove, onClone }) => {
   const [{ isOver }, drop] = useDrop({
     accept: ItemType,
     drop: (droppedItem) => onDrop(droppedItem.id, item.id),
@@ -25,31 +25,51 @@ const DroppableRow = ({ item, onDrop, onRemove }) => {
     >
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <span>{item.content}</span>
-        <button
-          onClick={() => onRemove(item.id)}
-          style={{
-            background: 'transparent',
-            border: 'none',
-            color: 'red',
-            cursor: 'pointer',
-            fontSize: '16px',
-          }}
-        >
-          ✖
-        </button>
+        <div>
+          <button
+            onClick={() => onClone(item.id)}
+            style={{
+              marginLeft: '8px',
+              border: 'none',
+              background: 'transparent',
+              color: 'blue',
+              cursor: 'pointer',
+              fontSize: '16px',
+              lineHeight: '1',
+            }}
+          >
+            ✚
+          </button>
+          <button
+            onClick={() => onRemove(item.id)}
+            style={{
+              marginLeft: '8px',
+              border: 'none',
+              background: 'transparent',
+              color: 'red',
+              cursor: 'pointer',
+              fontSize: '16px',
+              lineHeight: '1',
+            }}
+          >
+            ✖
+          </button>
+        </div>
       </div>
       <div style={{ display: 'flex', marginTop: '8px' }}>
         <DroppableColumn
           id={`col1-${item.id}`}
-          items={item.items}
+          items={item.rows || []}
           onDrop={onDrop}
           onRemove={onRemove}
+          onClone={onClone}
         />
         <DroppableColumn
           id={`col2-${item.id}`}
-          items={item.items}
+          items={item.rows || []}
           onDrop={onDrop}
           onRemove={onRemove}
+          onClone={onClone}
         />
       </div>
     </div>

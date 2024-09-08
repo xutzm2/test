@@ -6,9 +6,9 @@ import DraggableItem from './DraggableItem';
 
 const App = () => {
   const [items, setItems] = useState([]);
-  
+
   const handleDrop = (id, targetId) => {
-    const newItem = { id: `item-${items.length + 1}`, content: 'Row with 2 columns' };
+    const newItem = { id: `item-${items.length + 1}`, content: 'Row with 2 columns', rows: [] };
     setItems((prevItems) => {
       if (targetId) {
         return prevItems.map(item =>
@@ -27,11 +27,19 @@ const App = () => {
     );
   };
 
+  const handleClone = (id) => {
+    const itemToClone = items.find(item => item.id === id);
+    if (itemToClone) {
+      const clonedItem = { ...itemToClone, id: `item-${items.length + 1}` };
+      setItems((prevItems) => [...prevItems, clonedItem]);
+    }
+  };
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div style={{ padding: '20px' }}>
         <DraggableItem id="structure" content="Structure" />
-        <DroppableArea items={items} onDrop={handleDrop} onRemove={handleRemove} />
+        <DroppableArea items={items} onDrop={handleDrop} onRemove={handleRemove} onClone={handleClone} />
       </div>
     </DndProvider>
   );

@@ -4,7 +4,7 @@ import DraggableItem from './DraggableItem';
 
 const ItemType = 'ITEM';
 
-const DroppableColumn = ({ id, items = [], onDrop, onRemove }) => {
+const DroppableColumn = ({ id, items = [], onDrop, onRemove, onClone }) => {
   const [{ isOver }, drop] = useDrop({
     accept: ItemType,
     drop: (item) => onDrop(item.id, id),
@@ -29,20 +29,36 @@ const DroppableColumn = ({ id, items = [], onDrop, onRemove }) => {
       {items.map((item) => (
         <div key={item.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
           <DraggableItem id={item.id} content={item.content} />
-          <button
-            onClick={() => onRemove(item.id)}
-            style={{
-              marginLeft: '8px',
-              border: 'none',
-              background: 'transparent',
-              color: 'red',
-              cursor: 'pointer',
-              fontSize: '16px',
-              lineHeight: '1',
-            }}
-          >
-            ✖
-          </button>
+          <div>
+            <button
+              onClick={() => onClone(item.id)}
+              style={{
+                marginLeft: '8px',
+                border: 'none',
+                background: 'transparent',
+                color: 'blue',
+                cursor: 'pointer',
+                fontSize: '16px',
+                lineHeight: '1',
+              }}
+            >
+              ✚
+            </button>
+            <button
+              onClick={() => onRemove(item.id)}
+              style={{
+                marginLeft: '8px',
+                border: 'none',
+                background: 'transparent',
+                color: 'red',
+                cursor: 'pointer',
+                fontSize: '16px',
+                lineHeight: '1',
+              }}
+            >
+              ✖
+            </button>
+          </div>
         </div>
       ))}
     </div>

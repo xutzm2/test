@@ -4,7 +4,7 @@ import DroppableRow from './DroppableRow';
 
 const ItemType = 'ITEM';
 
-const DroppableArea = ({ items, onDrop, onRemove }) => {
+const DroppableArea = ({ items, onDrop, onRemove, onClone }) => {
   const [{ isOver }, drop] = useDrop({
     accept: ItemType,
     drop: (item) => onDrop(item.id),
@@ -30,6 +30,7 @@ const DroppableArea = ({ items, onDrop, onRemove }) => {
           item={item}
           onDrop={onDrop}
           onRemove={onRemove}
+          onClone={onClone}
         />
       ))}
     </div>

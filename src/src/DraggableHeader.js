@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDrag } from 'react-dnd';
 
-const DraggableHeader = () => {
+const DraggableHeader = ({ onRemove }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'HEADER',
     item: {},
@@ -17,9 +17,29 @@ const DraggableHeader = () => {
         padding: '8px',
         backgroundColor: isDragging ? 'lightgreen' : 'lightgray',
         cursor: 'move',
+        position: 'relative',
       }}
     >
-      Структура
+      <span>Структура</span>
+      <button
+        onClick={onRemove}
+        style={{
+          position: 'absolute',
+          top: '4px',
+          right: '4px',
+          background: 'red',
+          color: 'white',
+          border: 'none',
+          borderRadius: '50%',
+          width: '20px',
+          height: '20px',
+          textAlign: 'center',
+          lineHeight: '20px',
+          cursor: 'pointer',
+        }}
+      >
+        ×
+      </button>
     </div>
   );
 };

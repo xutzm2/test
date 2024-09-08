@@ -10,17 +10,27 @@ const App = () => {
     setHeaderPosition(zone);
   };
 
+  const handleRemove = () => {
+    setHeaderPosition(null);
+  };
+
   return (
     <DragDropContext>
       <div style={{ textAlign: 'center', marginBottom: '16px' }}>
-        <DraggableHeader />
+        {headerPosition === null && (
+          <DraggableHeader onRemove={handleRemove} />
+        )}
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <DropZone name="zone1" onDrop={handleDrop}>
-          {headerPosition === 'zone1' && <DraggableHeader />}
+          {headerPosition === 'zone1' && (
+            <DraggableHeader onRemove={handleRemove} />
+          )}
         </DropZone>
         <DropZone name="zone2" onDrop={handleDrop}>
-          {headerPosition === 'zone2' && <DraggableHeader />}
+          {headerPosition === 'zone2' && (
+            <DraggableHeader onRemove={handleRemove} />
+          )}
         </DropZone>
       </div>
     </DragDropContext>

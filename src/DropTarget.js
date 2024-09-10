@@ -24,18 +24,7 @@ const DropTarget = () => {
 
   return (
     <>
-        <div
-      ref={drop2} // Используем ref для привязки DOM-элемента к функционалу сброса
-      style={{
-        backgroundColor: isOver2 ? 'lightblue' : 'white', // Изменяем цвет, когда элемент находится над целью
-        padding: '20px',
-        minHeight: '100px',
-        border: '1px dashed black',
-      }}
-    >
-      Перетащи сюда элемент
-      {result2}
-    </div>
+
 
     <div
       ref={drop} // Используем ref для привязки DOM-элемента к функционалу сброса
@@ -47,6 +36,18 @@ const DropTarget = () => {
       }}
     >
       Перетащи сюда элемент
+      <div
+      ref={drop2} // Используем ref для привязки DOM-элемента к функционалу сброса
+      style={{
+        backgroundColor: isOver2 ? 'lightblue' : 'white', // Изменяем цвет, когда элемент находится над целью
+        padding: '20px',
+        minHeight: '100px',
+        border: '1px dashed black',
+      }}
+    >
+      Перетащи сюда элемент
+      {result2}
+    </div>
       {result}
     </div>
     </>
